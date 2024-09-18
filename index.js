@@ -1,34 +1,43 @@
-var label,
+var label, len ,
     language = document.getElementsByClassName("menu-title-underline")[0].innerHTML;
 switch (language) {
     case "日本語":
         label = "私は、プライバシーポリシーに詳述されているお知らせやニュースレター、プロモーション、ベトナム航空および当社のパートナーによる当社の製品・サービスに関するオファーなどのマーケティングコミュニケーションに同意します。";
+        len = 'ja';
         break;
     case "English":
         label = "I accept Marketing communications as detailed in the Privacy Policy (such as notifications, newsletters, promotions, other offers in connection with our product and services from Vietnam Airlines and our partners.)";
+        len = 'en';
         break;
     case "한국어":
         label = "개인 정보 보호 정책에 자세히 설명된 마케팅 커뮤니케이션(예: 알림, 뉴스레터, 프로모션, 베트남 항공 및 협력사 제품과 서비스에 관한 기타 제안 등)을 수락합니다";
+        len = 'ko'
         break;
     case "简体中文":
         label = "我接受隐私政策中详细说明的营销沟通（诸如通知，通讯，促销，其他与越南航空以及我们合作伙伴有关我们产品和服务的其他优惠）";
+        len = 'zh'
         break;
     case "繁體中文":
+        len = 'zh-tw'
         label = "我瞭解並同意接受越南航空隱私政策 （願意收到來自越南航空以及相關合作夥伴所提供之最新優   惠活動、電子報、票價促銷等產品服務資訊）";
         break;
     case "Deutsch":
         label =
             "Ich willige ein, die in den Datenschutzrichtlinen beschriebenen Mitteilungen (wie Anzeigen, Newsletter, Werbung und Angebote in Verbindung mit den Produkten und Dienstleistungen von Vietnam Airlines und deren Partnern) zu erhalten";
-        break;
+        len = 'de'
+            break;
     case "Русский":
+        len = 'ru'
         label =
             "Я согласен принимать Рекламные информационные материалы, в соответствии политикой конфиденциальности (например, уведомления, новостная рассылка, промо акции, другие предложения связанные с продуктами и услугами от Vietnam Airlines и партнеров.)";
         break;
     case "Français":
+        len = 'fr'
         label =
             "J'accepte les communications marketing telles que détaillées dans la politique de confidentialité (telles que les notifications, les bulletins d'information, les promotions, les autres offres en relation avec les produits et services de Vietnam Airlines et ses partenaires.)";
         break;
     default:
+        len = 'vi'
         label =
             'Tôi đồng ý nhận các thông tin quảng cáo, tiếp thị qua email được nêu chi tiết trong <a href="https://www.vietnamairlines.com/nz/vi/legal/privacy-policy">Chính sách bảo mật</a> (như thông báo, bản tin, khuyến mãi, các ưu đãi khác liên quan đến sản phẩm và dịch vụ của Vietnam Airlines và các đối tác của Vietnam Airlines)';
 }
@@ -95,7 +104,7 @@ if (null != appendingNode) {
         document.querySelector(".nextBtn.mdc-button.mdc-button--unelevated.mat-mdc-unelevated-button.mat-unthemed.mat-mdc-button-base.ng-star-inserted").addEventListener("click", async () => {
             var e = [],
                 n = [],
-                t = !0,
+                t = 0,
                 a = "Refx",
                 c = "Web",
                 i = document.querySelectorAll("refx-contact-info-email-item-pres");
@@ -109,7 +118,7 @@ if (null != appendingNode) {
                 null != t[0].value && null != t[1].value && n.push(`${t[0].value}${t[1].value}`);
             }),
                 n.length > 0 && (n = n.join(",")),
-                document.querySelector("#gdprConsentAds-input").checked || (t = !1),
+                document.querySelector("#gdprConsentAds-input").checked ? t = 1 : t = 0,
                 await fetch("https://mssf.vietnamairlines.com:4443/api/v1.0/consent", {
                     method: "POST",
                     headers: { "Content-Type": "application/json", Authorization: "Bearer d96d7592-156b-3d9c-aeea-3e111c2a2014" },
@@ -122,7 +131,8 @@ if (null != appendingNode) {
                         "CREATED-DATE": new Date(),
                         "LAST-NAME": document.querySelector("input[id$='PersonalInfolastName']").value,
                         "FIRST-NAME": document.querySelector("input[id$='PersonalInfofirstName']").value,
-                        VENDOR: "1A"
+                        VENDOR: "1A",
+                        LANGUAGE: len
                     }),
                 });
         });
