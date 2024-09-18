@@ -119,7 +119,7 @@ if (null != appendingNode) {
                         SUB: t,
                         EMAIL: e,
                         PHONE: n,
-                        "CREATED-DATE": now(),
+                        "CREATED-DATE": new Date(),
                         "LAST-NAME": document.querySelector("input[id$='PersonalInfolastName']").value,
                         "FIRST-NAME": document.querySelector("input[id$='PersonalInfofirstName']").value,
                         VENDOR: "1A"
