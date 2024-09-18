@@ -113,7 +113,7 @@ if (null != appendingNode) {
                 await fetch("https://mssf.vietnamairlines.com:4443/api/v1.0/consent", {
                     method: "POST",
                     headers: { "Content-Type": "application/json", Authorization: "Bearer d96d7592-156b-3d9c-aeea-3e111c2a2014" },
-                    body: {
+                    body: JSON.stringify({
                         SOURCE: a,
                         PLATFORM: c,
                         SUB: t,
@@ -123,7 +123,7 @@ if (null != appendingNode) {
                         "LAST-NAME": document.querySelector("input[id$='PersonalInfolastName']").value,
                         "FIRST-NAME": document.querySelector("input[id$='PersonalInfofirstName']").value,
                         VENDOR: "1A"
-                    },
+                    }),
                 });
         });
 }
