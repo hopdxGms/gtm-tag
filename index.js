@@ -8,7 +8,7 @@ var post_data = JSON.parse(JSON.parse(document.getElementsByTagName('body').item
     }
 });
 var language = document.getElementsByClassName("menu-title-underline")[0].innerHTML;
-link = `https://www.vietnamairlines.com/${countryCode}/${len}/legal/privacy-policy`;
+link = `https://www.vietnamairlines.com/${countryCode}/${len.split('-')[0]}/legal/privacy-policy`;
 switch (language) {
     case "日本語":
         label = "私は、プライバシーポリシーに詳述されているお知らせやニュースレター、プロモーション、ベトナム航空および当社のパートナーによる当社の製品・サービスに関するオファーなどのマーケティングコミュニケーションに同意します。";
@@ -61,7 +61,7 @@ if (null != appendingNode) {
                             break;
                         case "English":
                             len = 'en';
-                            label = `I accept Marketing communications as detailed in the <a href="${link}> Privacy Policy </a> (such as notifications, newsletters, promotions, other offers in connection with our product and services from Vietnam Airlines and our partners.)`;
+                            label = `I accept Marketing communications as detailed in the <a href="${link}"> Privacy Policy </a> (such as notifications, newsletters, promotions, other offers in connection with our product and services from Vietnam Airlines and our partners.)`;
                             break;
                         case "한국어":
                             label = "개인 정보 보호 정책에 자세히 설명된 마케팅 커뮤니케이션(예: 알림, 뉴스레터, 프로모션, 베트남 항공 및 협력사 제품과 서비스에 관한 기타 제안 등)을 수락합니다";
