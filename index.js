@@ -1,5 +1,12 @@
+//Setup uuid as device_key
+var localKeyId = localStorage.getItem('deviceId');
+if (localKeyId == null) {
+    localKeyId = crypto.randomUUID();
+    localStorage.setItem('deviceId', localKeyId);
+}
+
 var label, len, countryCode = '';
-var post_data = JSON.parse(JSON.parse(document.getElementsByTagName('body').item(0).getAttribute('data-post')).portalFacts).forEach((item) => {
+var post_data = JSON.parse(JSON.parse(document.getElementsByTagName('body').item(0).getAttribute('data-post')).portalFacts ? JSON.parse(document.getElementsByTagName('body').item(0).getAttribute('data-post')).portalFacts : '' ).forEach((item) => {
     if (item.key === 'countryCode') {
         countryCode = item.value
     }
@@ -138,7 +145,9 @@ if (null != appendingNode) {
                         "FIRST-NAME": document.querySelector("input[id$='PersonalInfofirstName']").value,
                         VENDOR: "1A",
                         LANGUAGE: len,
-                        COUNTRY: countryCode
+                        COUNTRY: countryCode,
+                        "DEVICE-ID": localKeyId,
+                        "GA-ID": gaGlobal ? gaGlobal.vid : ''
                     }),
                 });
         });
