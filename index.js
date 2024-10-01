@@ -6,8 +6,8 @@ if (localKeyId == null) {
 }
 
 var label, len, countryCode = '';
-if (document.getElementsByTagName('body').item(0).getAttribute('data-post') && document.getElementsByTagName('body').item(0).getAttribute('data-post').portalFacts) {
-    JSON.parse(JSON.parse(document.getElementsByTagName('body').item(0).getAttribute('data-post').portalFacts)).forEach((item) => {
+if (document.getElementsByTagName('body').item(0).getAttribute('data-post') && JSON.parse(document.getElementsByTagName('body').item(0).getAttribute('data-post')).portalFacts) {
+    JSON.parse(JSON.parse(document.getElementsByTagName('body').item(0).getAttribute('data-post')).portalFacts).forEach((item) => {
         if (item.key === 'countryCode') {
             countryCode = item.value;
             if (localStorage.getItem('countryCode') == null) {
