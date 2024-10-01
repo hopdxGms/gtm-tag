@@ -19,9 +19,13 @@ if (document.getElementsByTagName('body').item(0).getAttribute('data-post') && J
             }
         }
         if (item.key === 'language') {
-            len = item.value
+            len = item.value;
+            localStorage.setItem('language', item.value);
         }
     });
+} else {
+    len = localStorage.getItem('language');
+    countryCode = localStorage.getItem('countryCode');
 }
 var language = document.getElementsByClassName("menu-title-underline")[0].innerHTML;
 link = `https://www.vietnamairlines.com/${countryCode}/${len.split('-')[0]}/legal/privacy-policy`;
