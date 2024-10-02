@@ -35,9 +35,9 @@ switch (language) {
         break;
     case "English":
         if (countryCode.toUpperCase() == 'VN' || localStorage.getItem('countryCode') == 'VN') {
-            label = `I accept Marketing communications as detailed in the <a href="${link}"> Privacy Policy </a> (such as notifications, newsletters, promotions, other offers in connection with our product and services from Vietnam Airlines and our partners.). Estimated frequency: 02 emails per week.`;
+            label = `I accept Marketing communications as detailed in the <a href="${link}" target="_blank"> Privacy Policy</a> (such as notifications, newsletters, promotions, other offers in connection with our product and services from Vietnam Airlines and our partners.). Estimated frequency: 02 emails per week.`;
         } else {
-            label = `I accept Marketing communications as detailed in the <a href="${link}"> Privacy Policy </a> (such as notifications, newsletters, promotions, other offers in connection with our product and services from Vietnam Airlines and our partners.)`;
+            label = `I accept Marketing communications as detailed in the <a href="${link}" target="_blank"> Privacy Policy</a> (such as notifications, newsletters, promotions, other offers in connection with our product and services from Vietnam Airlines and our partners.)`;
         }
         break;
     case "한국어":
@@ -63,10 +63,10 @@ switch (language) {
         break;
     default:
         if (countryCode.toUpperCase() == 'VN' || localStorage.getItem('countryCode').toUpperCase() == 'VN') {
-            label = `Tôi đồng ý nhận các thông tin quảng cáo, tiếp thị qua email được nêu chi tiết trong <a href="${link}">Chính sách bảo mật</a> (như thông báo, bản tin, khuyến mãi, các ưu đãi khác liên quan đến sản phẩm và dịch vụ của Vietnam Airlines và các đối tác của Vietnam Airlines). Dự kiến tần suất nhận khoảng 02 email/tuần.`
+            label = `Tôi đồng ý nhận các thông tin quảng cáo, tiếp thị qua email được nêu chi tiết trong <a href="${link}" target="_blank">Chính sách bảo mật</a> (như thông báo, bản tin, khuyến mãi, các ưu đãi khác liên quan đến sản phẩm và dịch vụ của Vietnam Airlines và các đối tác của Vietnam Airlines). Dự kiến tần suất nhận khoảng 02 email/tuần.`
         } else {
             label =
-            `Tôi đồng ý nhận các thông tin quảng cáo, tiếp thị qua email được nêu chi tiết trong <a href="${link}">Chính sách bảo mật</a> (như thông báo, bản tin, khuyến mãi, các ưu đãi khác liên quan đến sản phẩm và dịch vụ của Vietnam Airlines và các đối tác của Vietnam Airlines)`;
+            `Tôi đồng ý nhận các thông tin quảng cáo, tiếp thị qua email được nêu chi tiết trong <a href="${link}" target="_blank">Chính sách bảo mật</a> (như thông báo, bản tin, khuyến mãi, các ưu đãi khác liên quan đến sản phẩm và dịch vụ của Vietnam Airlines và các đối tác của Vietnam Airlines)`;
         }
         break;
 }
@@ -91,9 +91,9 @@ if (null != appendingNode) {
                         case "English":
                             len = 'en';
                             if (countryCode.toUpperCase() == 'VN' || localStorage.getItem('countryCode') == 'VN') {
-                                label = `I accept Marketing communications as detailed in the <a href="${link}"> Privacy Policy </a> (such as notifications, newsletters, promotions, other offers in connection with our product and services from Vietnam Airlines and our partners.). Estimated frequency: 02 emails per week.`;
+                                label = `I accept Marketing communications as detailed in the <a href="${link}" target="_blank"> Privacy Policy </a> (such as notifications, newsletters, promotions, other offers in connection with our product and services from Vietnam Airlines and our partners.). Estimated frequency: 02 emails per week.`;
                             } else {
-                                label = `I accept Marketing communications as detailed in the <a href="${link}"> Privacy Policy </a> (such as notifications, newsletters, promotions, other offers in connection with our product and services from Vietnam Airlines and our partners.)`;
+                                label = `I accept Marketing communications as detailed in the <a href="${link}" target="_blank"> Privacy Policy </a> (such as notifications, newsletters, promotions, other offers in connection with our product and services from Vietnam Airlines and our partners.)`;
                             }
                             break;
                         case "한국어":
@@ -126,10 +126,10 @@ if (null != appendingNode) {
                         default:
                             len = 'vi'
                             if (countryCode.toUpperCase() == 'VN' || localStorage.getItem('countryCode').toUpperCase() == 'VN') {
-                                label = `Tôi đồng ý nhận các thông tin quảng cáo, tiếp thị qua email được nêu chi tiết trong <a href="${link}">Chính sách bảo mật</a> (như thông báo, bản tin, khuyến mãi, các ưu đãi khác liên quan đến sản phẩm và dịch vụ của Vietnam Airlines và các đối tác của Vietnam Airlines). Dự kiến tần suất nhận khoảng 02 email/tuần.`
+                                label = `Tôi đồng ý nhận các thông tin quảng cáo, tiếp thị qua email được nêu chi tiết trong <a href="${link}" target="_blank">Chính sách bảo mật</a> (như thông báo, bản tin, khuyến mãi, các ưu đãi khác liên quan đến sản phẩm và dịch vụ của Vietnam Airlines và các đối tác của Vietnam Airlines). Dự kiến tần suất nhận khoảng 02 email/tuần.`
                             } else {
                                 label =
-                                `Tôi đồng ý nhận các thông tin quảng cáo, tiếp thị qua email được nêu chi tiết trong <a href="${link}">Chính sách bảo mật</a> (như thông báo, bản tin, khuyến mãi, các ưu đãi khác liên quan đến sản phẩm và dịch vụ của Vietnam Airlines và các đối tác của Vietnam Airlines)`;
+                                `Tôi đồng ý nhận các thông tin quảng cáo, tiếp thị qua email được nêu chi tiết trong <a href="${link}" target="_blank">Chính sách bảo mật</a> (như thông báo, bản tin, khuyến mãi, các ưu đãi khác liên quan đến sản phẩm và dịch vụ của Vietnam Airlines và các đối tác của Vietnam Airlines)`;
                             }
                             break;
                     }
@@ -165,7 +165,7 @@ if (null != appendingNode) {
                 document.querySelector("#gdprConsentAds-input").checked ? t = 1 : t = 0,
                 await fetch("https://mssf.vietnamairlines.com:4443/api/v1.0/consent", {
                     method: "POST",
-                    headers: { "Content-Type": "application/json", Authorization: "Bearer d96d7592-156b-3d9c-aeea-3e111c2a2014" },
+                    headers: { "Content-Type": "application/json", Authorization: "Bearer 4288d60b-3cb2-3bd4-9ef1-248d75c94e59" },
                     body: JSON.stringify({
                         SOURCE: a,
                         PLATFORM: c,
