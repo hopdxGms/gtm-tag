@@ -165,7 +165,7 @@ if (null != appendingNode) {
                 document.querySelector("#gdprConsentAds-input").checked ? t = 1 : t = 0,
                 await fetch("https://mssf.vietnamairlines.com:4443/api/v1.0/consent", {
                     method: "POST",
-                    headers: { "Content-Type": "application/json", Authorization: "Bearer 4288d60b-3cb2-3bd4-9ef1-248d75c94e59" },
+                    headers: { "Content-Type": "application/json", Authorization: "Bearer d96d7592-156b-3d9c-aeea-3e111c2a2014" },
                     body: JSON.stringify({
                         SOURCE: a,
                         PLATFORM: c,
