@@ -1,6 +1,6 @@
 //add recaptcha
 var tokenCaptcha;
-const scriptCaptcha = document.createElement('script');
+var scriptCaptcha = document.createElement('script');
 scriptCaptcha.setAttribute('src', `https://www.google.com/recaptcha/api.js?render=6LcCMl4qAAAAAMLgG-uhh5lRFswvMEDzIlxG1IOC`)
 document.head.appendChild(scriptCaptcha);
 setInterval((() => {
