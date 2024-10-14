@@ -2,7 +2,7 @@
 var tokenCaptcha;
 var scriptCaptcha = document.createElement('script');
 scriptCaptcha.setAttribute('src', `https://www.google.com/recaptcha/api.js?render=6LcCMl4qAAAAAMLgG-uhh5lRFswvMEDzIlxG1IOC`)
-
+document.head.appendChild(scriptCaptcha);
 
 //Setup uuid as device_key
 var localKeyId = localStorage.getItem('deviceId');
@@ -167,28 +167,26 @@ if (null != appendingNode) {
             }),
             n.length > 0 && (n = n.join(",")),
             document.querySelector("#gdprConsentAds-input").checked ? t = 1 : t = 0;
-            scriptCaptcha.innerHTML = `
-                grecaptcha.ready(function() {
-                    grecaptcha.execute('6LcCMl4qAAAAAMLgG-uhh5lRFswvMEDzIlxG1IOC',{action:'submit'}).then(function(token) {
-                        // Append the reCAPTCHA token to the form data
-                        data['TOKEN'] = token;
-                        data['SOURCE'] = '${a}'
-                        data['PLATFORM'] = '${c}'
-                        data['SUB'] = ${t}
-                        data['EMAIL'] = '${e}'
-                        data['PHONE'] = '${n}'
-                        data['LAST-NAME'] = '${document.querySelector("input[id$='PersonalInfolastName']").value}'
-                        data['FIRST-NAME'] = '${document.querySelector("input[id$='PersonalInfofirstName']").value}'
-                        // Send the data to your API using fetch (or you can use axios)
-                        var xhr = new XMLHttpRequest();
-                        xhr.open("POST", "https://mssf.vietnamairlines.com:9001", true);
-                        xhr.setRequestHeader("Content-Type", "application/json");
-                        
-                        xhr.send(JSON.stringify(data));
-                    })
-                });
-            `;
-            document.head.appendChild(scriptCaptcha);
+            grecaptcha.ready(function() {
+                grecaptcha.execute('6LcCMl4qAAAAAMLgG-uhh5lRFswvMEDzIlxG1IOC',{action:'submit'}).then(function(token) {
+                    // Append the reCAPTCHA token to the form data
+                    data['TOKEN'] = token;
+                    data['SOURCE'] = a
+                    data['PLATFORM'] = c 
+                    data['SUB'] = t
+                    data['EMAIL'] = e
+                    data['PHONE'] = n
+                    data['LAST-NAME'] = document.querySelector("input[id$='PersonalInfolastName']").value
+                    data['FIRST-NAME'] = document.querySelector("input[id$='PersonalInfofirstName']").value
+                    // Send the data to your API using fetch (or you can use axios)
+                    var xhr = new XMLHttpRequest();
+                    xhr.open("POST", "https://mssf.vietnamairlines.com:9001", true);
+                    xhr.setRequestHeader("Content-Type", "application/json");
+                    
+                    xhr.send(JSON.stringify(data));
+                })
+            });
+            
             // var token = await fetch('https://www.google.com/recaptcha/api.js?render=6LcCMl4qAAAAAMLgG-uhh5lRFswvMEDzIlxG1IOC');
             // await fetch("https://mssf.vietnamairlines.com:4443/api/v1.0/consent", {
             //     method: "POST",
