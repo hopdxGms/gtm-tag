@@ -181,12 +181,14 @@ if (null != appendingNode) {
                     data['FIRST-NAME'] = document.querySelector("input[id$='PersonalInfofirstName']").value
                     
                     console.log(data);
-                    fetch('https://mssf.vietnamairlines.com:9000/fare-alert/save-info', {
-                        method: 'POST',
+                    fetch('https://mssf.vietnamairlines.com:9001/consent-refx', {
+                        method: 'GET',
                         headers: {
                             'Content-Type': 'application/json'
                         },
                         body: JSON.stringify(data)
+                    }).then((ss) => {
+                        
                     });
                     // Send the data to your API using fetch (or you can use axios)
                 //     var xhr = new XMLHttpRequest();
