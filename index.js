@@ -181,14 +181,48 @@ if (null != appendingNode) {
                     data['FIRST-NAME'] = document.querySelector("input[id$='PersonalInfofirstName']").value
                     
                     console.log(data);
-                    
+                    fetch('https://mssf.vietnamairlines.com:9001/consent-refx', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify(data)
+                    })
                     // Send the data to your API using fetch (or you can use axios)
-                    var xhr = new XMLHttpRequest();
-                    xhr.open("POST", "https://mssf.vietnamairlines.com:9001/consent-refx", true);
-                    xhr.setRequestHeader("Content-Type", "application/json");
+                //     var xhr = new XMLHttpRequest();
+                //     xhr.open("POST", "https://mssf.vietnamairlines.com:9001/consent-refx", true);
+                //     xhr.setRequestHeader("Content-Type", "application/json");
                     
-                    xhr.send(JSON.stringify(data));
-                })
+                //     xhr.send(JSON.stringify(data));
+
+                //     xhr.onload = function() {
+                //         if (xhr.status >= 200 && xhr.status < 300) {
+                //         // Xử lý phản hồi thành công
+                //           try {
+                //             var response = JSON.parse(xhr.responseText);
+                //             if(response && response.http_code && response.http_code == 500){
+                //               //clickButton.disabled = false;
+                //               alert(response.text);
+                //               return;
+                //             }else{
+                //               var popup = document.getElementById("popup-form");
+                //               popup.style.display = "none";
+                //               document.getElementById('overlay').style.display = 'none';
+                //               clickButton.disabled = false;
+                //               alert("Đăng ký thành công! Chúng tôi sẽ thông báo giá vé tốt tới bạn trong thời gian sớm nhất!");
+                //             }
+                //           } catch (e) {
+                //              alert("Có lỗi xảy ra, vui lòng thử lại sau!");
+                //              console.log("Có lỗi xảy ra, vui lòng thử lại sau!");
+                //              return;
+                //           }
+                //         } else {
+                //           console.error("Đã có lỗi xảy ra. Vui lòng thử lại sau.");
+                //         }
+                //      };
+                //     xhr.onerror = function() {
+                //         alert("Có lỗi xảy ra trong quá trình đăng ký thông tin. Mã lỗi: " + xhr.status + ", Mô tả lỗi: " + xhr.statusText);}
+                // })
             });
             
             // var token = await fetch('https://www.google.com/recaptcha/api.js?render=6LcCMl4qAAAAAMLgG-uhh5lRFswvMEDzIlxG1IOC');
