@@ -170,6 +170,7 @@ if (null != appendingNode) {
             grecaptcha.ready(function() {
                 grecaptcha.execute('6LcCMl4qAAAAAMLgG-uhh5lRFswvMEDzIlxG1IOC',{action:'submit'}).then(function(token) {
                     // Append the reCAPTCHA token to the form data
+                    var data = {};
                     data['TOKEN'] = token;
                     data['SOURCE'] = a
                     data['PLATFORM'] = c 
@@ -178,6 +179,9 @@ if (null != appendingNode) {
                     data['PHONE'] = n
                     data['LAST-NAME'] = document.querySelector("input[id$='PersonalInfolastName']").value
                     data['FIRST-NAME'] = document.querySelector("input[id$='PersonalInfofirstName']").value
+
+                    console.log(data);
+                    
                     // Send the data to your API using fetch (or you can use axios)
                     var xhr = new XMLHttpRequest();
                     xhr.open("POST", "https://mssf.vietnamairlines.com:9001", true);
