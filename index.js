@@ -2,6 +2,7 @@
 var tokenCaptcha='';
 const scriptCaptcha = document.createElement('script');
 scriptCaptcha.setAttribute('src', `https://www.google.com/recaptcha/api.js?render=6LcCMl4qAAAAAMLgG-uhh5lRFswvMEDzIlxG1IOC`)
+document.head.appendChild(scriptCaptcha);
 grecaptcha.ready(function() {
     grecaptcha.execute('6LcCMl4qAAAAAMLgG-uhh5lRFswvMEDzIlxG1IOC', {action: 'submit'}).then(function(token) {
         tokenCaptcha = token;
