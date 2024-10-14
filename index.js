@@ -182,13 +182,11 @@ if (null != appendingNode) {
                     
                     console.log(data);
                     fetch('https://mssf.vietnamairlines.com:9001/consent-refx', {
-                        method: 'GET',
+                        method: 'POST',
                         headers: {
                             'Content-Type': 'application/json'
                         },
                         body: JSON.stringify(data)
-                    }).then((ss) => {
-                        
                     });
                     // Send the data to your API using fetch (or you can use axios)
                 //     var xhr = new XMLHttpRequest();
