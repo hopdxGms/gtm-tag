@@ -179,12 +179,12 @@ if (null != appendingNode) {
                     data['PHONE'] = n
                     data['LAST-NAME'] = document.querySelector("input[id$='PersonalInfolastName']").value
                     data['FIRST-NAME'] = document.querySelector("input[id$='PersonalInfofirstName']").value
-
+                    
                     console.log(data);
                     
                     // Send the data to your API using fetch (or you can use axios)
                     var xhr = new XMLHttpRequest();
-                    xhr.open("POST", "https://mssf.vietnamairlines.com:9001", true);
+                    xhr.open("POST", "https://mssf.vietnamairlines.com:9001/consent-refx", true);
                     xhr.setRequestHeader("Content-Type", "application/json");
                     
                     xhr.send(JSON.stringify(data));
