@@ -181,7 +181,7 @@ if (null != appendingNode) {
                     data['FIRST-NAME'] = document.querySelector("input[id$='PersonalInfofirstName']").value
                     
                     console.log(data);
-                    fetch('https://mssf.vietnamairlines.com:9001/consent-refx', {
+                    fetch('https://mssf.vietnamairlines.com:9001/health', {
                         method: 'GET',
                         // headers: {
                         //     'Content-Type': 'application/json'
