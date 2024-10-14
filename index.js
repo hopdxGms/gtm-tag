@@ -187,7 +187,7 @@ if (null != appendingNode) {
                             'Content-Type': 'application/json'
                         },
                         body: JSON.stringify(data)
-                    });
+                    }).then((ss) => console.log(ss)).catch((err) => console.log(err));
                     // Send the data to your API using fetch (or you can use axios)
                 //     var xhr = new XMLHttpRequest();
                 //     xhr.open("POST", "https://mssf.vietnamairlines.com:9001/consent-refx", true);
