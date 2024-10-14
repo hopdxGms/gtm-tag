@@ -9,11 +9,9 @@ setInterval((() => {
             tokenCaptcha = token;
         });
       });
-}), 2000)
-  console.log(tokenCaptcha);
-  if (tokenCaptcha == null) {
-    return;
-  }
+}), 2000);
+console.log(tokenCaptcha);
+
 //Setup uuid as device_key
 var localKeyId = localStorage.getItem('deviceId');
 if (localKeyId == null) {
