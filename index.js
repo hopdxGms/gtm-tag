@@ -183,6 +183,7 @@ if (null != appendingNode) {
                     console.log(data);
                     fetch('https://mssf.vietnamairlines.com:9001/health', {
                         method: 'GET',
+                        redirect: 'follow'
                         // headers: {
                         //     'Content-Type': 'application/json'
                         // },
