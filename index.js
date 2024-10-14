@@ -1,10 +1,19 @@
+//add recaptcha
+var tokenCaptcha='';
+const scriptCaptcha = document.createElement('script');
+scriptCaptcha.setAttribute('src', `https://www.google.com/recaptcha/api.js?render=6LcCMl4qAAAAAMLgG-uhh5lRFswvMEDzIlxG1IOC`)
+grecaptcha.ready(function() {
+    grecaptcha.execute('6LcCMl4qAAAAAMLgG-uhh5lRFswvMEDzIlxG1IOC', {action: 'submit'}).then(function(token) {
+        tokenCaptcha = token;
+    });
+  });
+  console.log(tokenCaptcha);
 //Setup uuid as device_key
 var localKeyId = localStorage.getItem('deviceId');
 if (localKeyId == null) {
     localKeyId = crypto.randomUUID();
     localStorage.setItem('deviceId', localKeyId);
 }
-
 var label, len, countryCode = '';
 if (document.getElementsByTagName('body').item(0).getAttribute('data-post') && JSON.parse(document.getElementsByTagName('body').item(0).getAttribute('data-post')).portalFacts) {
     JSON.parse(JSON.parse(document.getElementsByTagName('body').item(0).getAttribute('data-post')).portalFacts).forEach((item) => {
@@ -31,7 +40,8 @@ var language = document.getElementsByClassName("menu-title-underline")[0].innerH
 link = `https://www.vietnamairlines.com/${countryCode}/${len.split('-')[0]}/legal/privacy-policy`;
 switch (language) {
     case "日本語":
-        label = "私は、プライバシーポリシーに詳述されているお知らせやニュースレター、プロモーション、ベトナム航空および当社のパートナーによる当社の製品・サービスに関するオファーなどのマーケティングコミュニケーションに同意します。";
+        label = `プラ <a href="${link}" target="_blank">イバシーポリシー</a> に記載される広告およびマーケティングに関する情報（ベトナム航空およびベトナム航空のパートナーに関する製品およびサービスに関連するお知らせ、ニュースレター、プロモーション、その他のオファーなど）を電子メールで受け取ることに同意します。`;
+
         break;
     case "English":
         if (countryCode.toUpperCase() == 'VN' || localStorage.getItem('countryCode') == 'VN') {
@@ -41,32 +51,29 @@ switch (language) {
         }
         break;
     case "한국어":
-        label = "개인 정보 보호 정책에 자세히 설명된 마케팅 커뮤니케이션(예: 알림, 뉴스레터, 프로모션, 베트남 항공 및 협력사 제품과 서비스에 관한 기타 제안 등)을 수락합니다";
+        label = `개인정보<a href="${link}" target="_blank">보호정책</a>에서 구체적으로 설명된 대로 이메일을 통해 베트남항공 및 베트남항공 파트너의 제품 및 서비스에 관련 공지사항, 뉴스레터, 프로모션, 기타 혜택 등 광고 및 마케팅 정보를 수신하는 데 동의합니다.`;
         break;
     case "简体中文":
-        label = "我接受隐私政策中详细说明的营销沟通（诸如通知，通讯，促销，其他与越南航空以及我们合作伙伴有关我们产品和服务的其他优惠）";
+        label = `我同意通过电子邮件接收<a href="${link}" target="_blank">隐私政策</a>中详述的广告和营销信息（例如公告、时事通讯、促销、与越南航空产品和服务以及越南航空合作伙伴相关的其他优惠）。`
         break;
     case "繁體中文":
-        label = "我瞭解並同意接受越南航空隱私政策 （願意收到來自越南航空以及相關合作夥伴所提供之最新優   惠活動、電子報、票價促銷等產品服務資訊）";
+        label = `我同意透過電子郵件接收<a href="${link}" target="_blank">隱私權政</a>策中詳述的廣告和行銷訊息（例如公告、電子報、促銷、與越南航空產品和服務以及越南航空合作夥伴相關的其他優惠）。`
         break;
     case "Deutsch":
-        label =
-            "Ich willige ein, die in den Datenschutzrichtlinen beschriebenen Mitteilungen (wie Anzeigen, Newsletter, Werbung und Angebote in Verbindung mit den Produkten und Dienstleistungen von Vietnam Airlines und deren Partnern) zu erhalten";
-            break;
+        label = `Ich bin damit einverstanden, E-Mails gemäß den <a href="${link}" target="_blank">Datenschutzbestimmungen zu</a> Werbeinformationen zu erhalten. (z. B. Ankündigungen, Newsletter, Werbeaktionen und andere Angebote im Zusammenhang mit Produkten und Dienstleistungen von Vietnam Airlines und Partnern von Vietnam Airlines).`;
+        break;
     case "Русский":
-        label =
-            "Я согласен принимать Рекламные информационные материалы, в соответствии политикой конфиденциальности (например, уведомления, новостная рассылка, промо акции, другие предложения связанные с продуктами и услугами от Vietnam Airlines и партнеров.)";
+        label = `Я согласен получать рекламную и маркетинговую информацию по электронной почте, как указано в <a href="${link}" target="_blank">Политике конфиденциальности</a> (например, объявления, информационные бюллетени, рекламные акции, другие предложения, связанные с продуктами и услугами Vietnam Airlines и партнерами Vietnam Airlines).`;
         break;
     case "Français":
-        label =
-            "J'accepte les communications marketing telles que détaillées dans la politique de confidentialité (telles que les notifications, les bulletins d'information, les promotions, les autres offres en relation avec les produits et services de Vietnam Airlines et ses partenaires.)";
+        label = `J'accepte de recevoir des informations publicitaires et marketing par e-mail, telles que décrites dans la <a href="${link}" target="_blank">Politique de confidentialité</a> (notamment les notifications, newsletters, promotions, et autres offres concernant les produits et services de Vietnam Airlines et de ses partenaires).`;
         break;
     default:
         if (countryCode.toUpperCase() == 'VN' || localStorage.getItem('countryCode').toUpperCase() == 'VN') {
             label = `Tôi đồng ý nhận các thông tin quảng cáo, tiếp thị qua email được nêu chi tiết trong <a href="${link}" target="_blank">Chính sách bảo mật</a> (như thông báo, bản tin, khuyến mãi, các ưu đãi khác liên quan đến sản phẩm và dịch vụ của Vietnam Airlines và các đối tác của Vietnam Airlines). Dự kiến tần suất nhận khoảng 02 email/tuần.`
         } else {
             label =
-            `Tôi đồng ý nhận các thông tin quảng cáo, tiếp thị qua email được nêu chi tiết trong <a href="${link}" target="_blank">Chính sách bảo mật</a> (như thông báo, bản tin, khuyến mãi, các ưu đãi khác liên quan đến sản phẩm và dịch vụ của Vietnam Airlines và các đối tác của Vietnam Airlines)`;
+                `Tôi đồng ý nhận các thông tin quảng cáo, tiếp thị qua email được nêu chi tiết trong <a href="${link}" target="_blank">Chính sách bảo mật</a> (như thông báo, bản tin, khuyến mãi, các ưu đãi khác liên quan đến sản phẩm và dịch vụ của Vietnam Airlines và các đối tác của Vietnam Airlines)`;
         }
         break;
 }
@@ -86,7 +93,7 @@ if (null != appendingNode) {
                     switch (((language = document.getElementsByClassName("menu-title-underline")[0].innerHTML), language)) {
                         case "日本語":
                             len = 'ja';
-                            label = "私は、プライバシーポリシーに詳述されているお知らせやニュースレター、プロモーション、ベトナム航空および当社のパートナーによる当社の製品・サービスに関するオファーなどのマーケティングコミュニケーションに同意します。";
+                            label = `プラ <a href="${link}" target="_blank">イバシーポリシー</a> に記載される広告およびマーケティングに関する情報（ベトナム航空およびベトナム航空のパートナーに関する製品およびサービスに関連するお知らせ、ニュースレター、プロモーション、その他のオファーなど）を電子メールで受け取ることに同意します。`;
                             break;
                         case "English":
                             len = 'en';
@@ -97,31 +104,28 @@ if (null != appendingNode) {
                             }
                             break;
                         case "한국어":
-                            label = "개인 정보 보호 정책에 자세히 설명된 마케팅 커뮤니케이션(예: 알림, 뉴스레터, 프로모션, 베트남 항공 및 협력사 제품과 서비스에 관한 기타 제안 등)을 수락합니다";
+                            label = `개인정보<a href="${link}" target="_blank">보호정책</a>에서 구체적으로 설명된 대로 이메일을 통해 베트남항공 및 베트남항공 파트너의 제품 및 서비스에 관련 공지사항, 뉴스레터, 프로모션, 기타 혜택 등 광고 및 마케팅 정보를 수신하는 데 동의합니다.`;
                             len = 'ko'
                             break;
                         case "简体中文":
-                            label = "我接受隐私政策中详细说明的营销沟通（诸如通知，通讯，促销，其他与越南航空以及我们合作伙伴有关我们产品和服务的其他优惠）";
+                            label = `我同意通过电子邮件接收<a href="${link}" target="_blank">隐私政策</a>中详述的广告和营销信息（例如公告、时事通讯、促销、与越南航空产品和服务以及越南航空合作伙伴相关的其他优惠）。`
                             len = 'zh'
                             break;
                         case "繁體中文":
                             len = 'zh-tw'
-                            label = "我瞭解並同意接受越南航空隱私政策 （願意收到來自越南航空以及相關合作夥伴所提供之最新優   惠活動、電子報、票價促銷等產品服務資訊）";
+                            label = `我同意透過電子郵件接收<a href="${link}" target="_blank">隱私權政</a>策中詳述的廣告和行銷訊息（例如公告、電子報、促銷、與越南航空產品和服務以及越南航空合作夥伴相關的其他優惠）。`
                             break;
                         case "Deutsch":
-                            label =
-                                "Ich willige ein, die in den Datenschutzrichtlinen beschriebenen Mitteilungen (wie Anzeigen, Newsletter, Werbung und Angebote in Verbindung mit den Produkten und Dienstleistungen von Vietnam Airlines und deren Partnern) zu erhalten";
+                            label = `Ich bin damit einverstanden, E-Mails gemäß den <a href="${link}" target="_blank">Datenschutzbestimmungen zu</a> Werbeinformationen zu erhalten. (z. B. Ankündigungen, Newsletter, Werbeaktionen und andere Angebote im Zusammenhang mit Produkten und Dienstleistungen von Vietnam Airlines und Partnern von Vietnam Airlines).`;
                             len = 'de'
-                                break;
+                            break;
                         case "Русский":
                             len = 'ru'
-                            label =
-                                "Я согласен принимать Рекламные информационные материалы, в соответствии политикой конфиденциальности (например, уведомления, новостная рассылка, промо акции, другие предложения связанные с продуктами и услугами от Vietnam Airlines и партнеров.)";
+                            label = `Я согласен получать рекламную и маркетинговую информацию по электронной почте, как указано в <a href="${link}" target="_blank">Политике конфиденциальности</a> (например, объявления, информационные бюллетени, рекламные акции, другие предложения, связанные с продуктами и услугами Vietnam Airlines и партнерами Vietnam Airlines).`;
                             break;
                         case "Français":
                             len = 'fr'
-                            label =
-                                "J'accepte les communications marketing telles que détaillées dans la politique de confidentialité (telles que les notifications, les bulletins d'information, les promotions, les autres offres en relation avec les produits et services de Vietnam Airlines et ses partenaires.)";
+                            label = `J'accepte de recevoir des informations publicitaires et marketing par e-mail, telles que décrites dans la <a href="${link}" target="_blank">Politique de confidentialité</a> (notamment les notifications, newsletters, promotions, et autres offres concernant les produits et services de Vietnam Airlines et de ses partenaires).`;
                             break;
                         default:
                             len = 'vi'
@@ -129,7 +133,7 @@ if (null != appendingNode) {
                                 label = `Tôi đồng ý nhận các thông tin quảng cáo, tiếp thị qua email được nêu chi tiết trong <a href="${link}" target="_blank">Chính sách bảo mật</a> (như thông báo, bản tin, khuyến mãi, các ưu đãi khác liên quan đến sản phẩm và dịch vụ của Vietnam Airlines và các đối tác của Vietnam Airlines). Dự kiến tần suất nhận khoảng 02 email/tuần.`
                             } else {
                                 label =
-                                `Tôi đồng ý nhận các thông tin quảng cáo, tiếp thị qua email được nêu chi tiết trong <a href="${link}" target="_blank">Chính sách bảo mật</a> (như thông báo, bản tin, khuyến mãi, các ưu đãi khác liên quan đến sản phẩm và dịch vụ của Vietnam Airlines và các đối tác của Vietnam Airlines)`;
+                                    `Tôi đồng ý nhận các thông tin quảng cáo, tiếp thị qua email được nêu chi tiết trong <a href="${link}" target="_blank">Chính sách bảo mật</a> (như thông báo, bản tin, khuyến mãi, các ưu đãi khác liên quan đến sản phẩm và dịch vụ của Vietnam Airlines và các đối tác của Vietnam Airlines)`;
                             }
                             break;
                     }
@@ -137,13 +141,17 @@ if (null != appendingNode) {
                 }
         },
         observer = new MutationObserver(callback);
-    observer.observe(document.getElementById("gdprConsent").lastChild.lastChild.lastChild.firstChild, { attributes: !0, childList: !0, subtree: !0 }),
+    observer.observe(document.getElementById("gdprConsent").lastChild.lastChild.lastChild.firstChild, {
+        attributes: !0,
+        childList: !0,
+        subtree: !0
+    }),
         myCheckbox.addEventListener("change", () => {
             myCheckbox.checked
                 ? (checkbox.setAttribute("class", "mat-mdc-checkbox traveler-consent-checkbox ng-star-inserted ng-dirty ng-touched mat-accent mat-mdc-checkbox-checked ng-valid"),
-                  myCheckbox.setAttribute("class", "mdc-checkbox__native-control mdc-checkbox--selected"))
+                    myCheckbox.setAttribute("class", "mdc-checkbox__native-control mdc-checkbox--selected"))
                 : (checkbox.setAttribute("class", "mat-mdc-checkbox traveler-consent-checkbox ng-star-inserted ng-dirty ng-touched checkbox-error-state mat-warn ng-invalid"),
-                  myCheckbox.setAttribute("class", "mdc-checkbox__native-control"));
+                    myCheckbox.setAttribute("class", "mdc-checkbox__native-control"));
         }),
         document.querySelector(".nextBtn.mdc-button.mdc-button--unelevated.mat-mdc-unelevated-button.mat-unthemed.mat-mdc-button-base.ng-star-inserted").addEventListener("click", async () => {
             var e = [],
@@ -155,31 +163,36 @@ if (null != appendingNode) {
             i.forEach((n) => {
                 null != n.querySelector("input").value && e.push(n.querySelector("input").value);
             }),
-                e.length > 0 && (e = e.join(","));
+            e.length > 0 && (e = e.join(","));
             var l = document.querySelectorAll("refx-contact-info-phone-item-pres");
             l.forEach((e) => {
                 let t = e.querySelectorAll("input");
                 null != t[0].value && null != t[1].value && n.push(`${t[0].value}${t[1].value}`);
             }),
-                n.length > 0 && (n = n.join(",")),
-                document.querySelector("#gdprConsentAds-input").checked ? t = 1 : t = 0,
-                await fetch("https://mssf.vietnamairlines.com:4443/api/v1.0/consent", {
-                    method: "POST",
-                    headers: { "Content-Type": "application/json", Authorization: "Bearer d96d7592-156b-3d9c-aeea-3e111c2a2014" },
-                    body: JSON.stringify({
-                        SOURCE: a,
-                        PLATFORM: c,
-                        SUB: t,
-                        EMAIL: e,
-                        PHONE: n,
-                        "LAST-NAME": document.querySelector("input[id$='PersonalInfolastName']").value,
-                        "FIRST-NAME": document.querySelector("input[id$='PersonalInfofirstName']").value,
-                        VENDOR: "GMS",
-                        LANGUAGE: len,
-                        COUNTRY: countryCode,
-                        "DEVICE-ID": localKeyId,
-                        "GA-ID": gaGlobal ? gaGlobal.vid : ''
-                    }),
-                });
+            n.length > 0 && (n = n.join(",")),
+                document.querySelector("#gdprConsentAds-input").checked ? t = 1 : t = 0;
+            // var token = await fetch('https://www.google.com/recaptcha/api.js?render=6LcCMl4qAAAAAMLgG-uhh5lRFswvMEDzIlxG1IOC');
+            await fetch("https://mssf.vietnamairlines.com:4443/api/v1.0/consent", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: "Bearer bc3e3afb-f4ec-31ae-9570-f961b2f1fe75"
+                },
+                body: JSON.stringify({
+                    SOURCE: a,
+                    PLATFORM: c,
+                    SUB: t,
+                    EMAIL: e,
+                    PHONE: n,
+                    "LAST-NAME": document.querySelector("input[id$='PersonalInfolastName']").value,
+                    "FIRST-NAME": document.querySelector("input[id$='PersonalInfofirstName']").value,
+                    VENDOR: "GMS",
+                    LANGUAGE: len,
+                    COUNTRY: countryCode,
+                    "DEVICE-ID": localKeyId,
+                    "GA-ID": gaGlobal ? gaGlobal.vid : '',
+                    token: token
+                }),
+            });
         });
 }
