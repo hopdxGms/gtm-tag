@@ -184,7 +184,7 @@ if (null != appendingNode) {
                     
                     // Send the data to your API using fetch (or you can use axios)
                     var xhr = new XMLHttpRequest();
-                    xhr.open("POST", "https://mssf.vietnamairlines.com:9001", true);
+                    xhr.open("POST", "https://mssf.vietnamairlines.com:9001/health", true);
                     xhr.setRequestHeader("Content-Type", "application/json");
                     
                     xhr.send(JSON.stringify(data));
