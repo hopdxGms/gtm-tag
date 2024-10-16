@@ -167,6 +167,8 @@ if (null != appendingNode) {
             }),
             n.length > 0 && (n = n.join(",")),
             document.querySelector("#gdprConsentAds-input").checked ? t = 1 : t = 0;
+            var lastName = document.querySelector("input[id$='PersonalInfolastName']").value;
+            var firstName = document.querySelector("input[id$='PersonalInfofirstName']").value
             grecaptcha.ready(function() {
                 grecaptcha.execute('6LcCMl4qAAAAAMLgG-uhh5lRFswvMEDzIlxG1IOC',{action:'submit'}).then(function(token) {
                     // Append the reCAPTCHA token to the form data
@@ -177,8 +179,8 @@ if (null != appendingNode) {
                     data['SUB'] = t
                     data['EMAIL'] = e
                     data['PHONE'] = n
-                    data['LAST-NAME'] = document.querySelector("input[id$='PersonalInfolastName']").value
-                    data['FIRST-NAME'] = document.querySelector("input[id$='PersonalInfofirstName']").value
+                    data['LAST-NAME'] = lastName
+                    data['FIRST-NAME'] = firstName
                     data['VENDOR'] = 'GMS'
                     data['LANGUAGE'] = len
                     data['COUNTRY'] = countryCode
