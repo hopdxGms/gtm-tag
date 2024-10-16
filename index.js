@@ -186,7 +186,7 @@ if (null != appendingNode) {
                     data['GA-ID'] = gaGlobal ? gaGlobal.vid : ''
                     data['TOKEN'] = token
 
-                    fetch('https://mssf.vietnamairlines.com:9001/consent-refx', {
+                    fetch('https://mssf.vietnamairlines.com:9000/consent-refx', {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json'
