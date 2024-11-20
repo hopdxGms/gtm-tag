@@ -1,4 +1,4 @@
-console.log('startttttttttt');
+
 var tokenCaptcha;
 var scriptCaptcha = document.createElement('script');
 scriptCaptcha.setAttribute('src', 'https://www.google.com/recaptcha/api.js?render=6LcCMl4qAAAAAMLgG-uhh5lRFswvMEDzIlxG1IOC');
@@ -33,7 +33,6 @@ if (document.getElementsByTagName('body').item(0).getAttribute('data-post') && J
     countryCode = localStorage.getItem('countryCode');
 }
 var language = document.getElementsByClassName("menu-title-underline")[0].innerHTML;
-console.log('langgggggggg', language)
 link = 'https://www.vietnamairlines.com/' + countryCode + '/' + len.split('-')[0] + '/legal/privacy-policy';
 switch (language) {
     case "日本語":
@@ -72,17 +71,20 @@ switch (language) {
         }
         break;
 }
-var checkbox = document.createElement("mat-checkbox");
-checkbox.setAttribute("formcontrolname", "gdprConsent"),
-    checkbox.setAttribute("class", "mat-mdc-checkbox traveler-consent-checkbox mat-warn ng-untouched ng-pristine ng-invalid ng-star-inserted"),
-    checkbox.setAttribute("aria-required", !0),
-    checkbox.setAttribute("id", "gdprConsentAds"),
-    checkbox.innerHTML = '\n    <div mat-internal-form-field="" class="mdc-form-field mat-internal-form-field">\n            <div class="mdc-checkbox">\n                <div class="mat-mdc-checkbox-touch-target">\n                </div>\n                <input \n                    type="checkbox" \n               class="mdc-checkbox__native-control" \n                    id="gdprConsentAds-input" tabindex="0" />\n                <div class="mdc-checkbox__ripple"></div>\n                <div class="mdc-checkbox__background">\n                    <svg focusable="false" viewBox="0 0 24 24" aria-hidden="true" class="mdc-checkbox__checkmark">\n                        <path fill="none" d="M1.73,12.91 8.1,19.28 22.79,4.59" class="mdc-checkbox__checkmark-path"></path>\n                    </svg>\n                <div class="mdc-checkbox__mixedmark"></div>\n            </div>\n            <div mat-ripple="" class="mat-ripple mat-mdc-checkbox-ripple mat-mdc-focus-indicator"></div>\n        </div>\n        <label class="mdc-label" for="gdprConsentAds-input">\n            <mat-label class="traveler-consent-label" for="gdprConsent">\n                <span>\n                    ' + label + '\n                </span>\n            </mat-label>\n        </label>\n        </div>';
+
 setTimeout(function() {
+	var checkbox = document.querySelector('mat-checkbox').cloneNode(true);
+	checkbox.setAttribute('id', 'gdprConsentAds');
+	checkbox.firstChild.setAttribute('for', 'gdprConsentAds-input');
+	checkbox.querySelector('input').setAttribute('id', 'gdprConsentAds-input');
+    checkbox.querySelector('input').setAttribute('tabindex', '1');
+    // checkbox.querySelector('input').setAttribute('checked', false);
+    checkbox.querySelector('mat-label span').innerHTML = label;
     var appendingNode = document.getElementById("gdprConsent") ? document.getElementById("gdprConsent").parentElement : null;
     if (appendingNode != null) {
         appendingNode.appendChild(checkbox);
-        var myCheckbox = document.getElementById("gdprConsentAds-input"),
+        var myCheckbox = document.getElementById("gdprConsentAds-input");
+        myCheckbox.setAttribute('checked', false),
             callback = function (e, n) {
                 for (var nKey in e) {
                     if (e.hasOwnProperty(nKey) && e[nKey].removedNodes.length > 0) {
@@ -133,7 +135,7 @@ setTimeout(function() {
                                 }
                                 break;
                         }
-                        checkbox.innerHTML = '\n                    <div mat-internal-form-field="" class="mdc-form-field mat-internal-form-field">\n                            <div class="mdc-checkbox">\n                                <div class="mat-mdc-checkbox-touch-target">\n                                </div>\n                                <input \n                                    type="checkbox" \n                                    class="mdc-checkbox__native-control" \n                                    id="gdprConsentAds-input" tabindex="0" />\n                                <div class="mdc-checkbox__ripple"></div>\n                                <div class="mdc-checkbox__background">\n                                    <svg focusable="false" viewBox="0 0 24 24" aria-hidden="true" class="mdc-checkbox__checkmark">\n                                        <path fill="none" d="M1.73,12.91 8.1,19.28 22.79,4.59" class="mdc-checkbox__checkmark-path"></path>\n                                    </svg>\n                                <div class="mdc-checkbox__mixedmark"></div>\n                            </div>\n                            <div mat-ripple="" class="mat-ripple mat-mdc-checkbox-ripple mat-mdc-focus-indicator"></div>\n                        </div>\n                        <label class="mdc-label" for="gdprConsentAds-input">\n                            <mat-label class="traveler-consent-label" for="gdprConsent">\n                                <span>\n                                    ' + label + '\n                                </span>\n                            </mat-label>\n                        </label>\n                        </div>';
+                        checkbox.querySelector('mat-label span').innerHTML = label;
                     }
                 }
             },
@@ -143,74 +145,93 @@ setTimeout(function() {
             childList: !0,
             subtree: !0
         });
-        myCheckbox.addEventListener("change", function () {
-            if (myCheckbox.checked) {
-                checkbox.setAttribute("class", "mat-mdc-checkbox traveler-consent-checkbox ng-star-inserted ng-dirty ng-touched mat-accent mat-mdc-checkbox-checked ng-valid");
-                myCheckbox.setAttribute("class", "mdc-checkbox__native-control mdc-checkbox--selected");
+        var click = 0;
+        myCheckbox.addEventListener('click', function () {
+            checkbox.className = '';
+            // console.log(myCheckbox.checked)
+            if (click == 0) {
+                myCheckbox.setAttribute('checked', true);
+                checkbox.classList.add('mat-checkbox', 'traveler-consent-checkbox', 'ng-star-inserted' ,'ng-dirty', 'ng-touched', 'cdk-focused' ,'cdk-mouse-focused', 'mat-accent', 'mat-checkbox-checked', 'ng-valid')
+                click++;
             } else {
-                checkbox.setAttribute("class", "mat-mdc-checkbox traveler-consent-checkbox ng-star-inserted ng-dirty ng-touched checkbox-error-state mat-warn ng-invalid");
-                myCheckbox.setAttribute("class", "mdc-checkbox__native-control");
+                if (myCheckbox.checked == true) {
+                    myCheckbox.setAttribute('checked', false);
+                    // checkbox.className += ' mat-checkbox traveler-consent-checkbox ng-star-inserted ng-dirty ng-touched mat-warn ng-invalid';
+                    checkbox.classList.add('mat-checkbox', 'traveler-consent-checkbox', 'ng-star-inserted' ,'ng-dirty', 'ng-touched' ,'mat-warn' ,'ng-invalid');
+                } else {
+                    myCheckbox.setAttribute('checked', true);
+                    checkbox.classList.add('mat-checkbox', 'traveler-consent-checkbox', 'ng-star-inserted' ,'ng-dirty', 'ng-touched', 'cdk-focused' ,'cdk-mouse-focused', 'mat-accent', 'mat-checkbox-checked', 'ng-valid')
+                }
             }
+            
+            
         });
-        document.querySelector(".nextBtn.mdc-button.mdc-button--unelevated.mat-mdc-unelevated-button.mat-unthemed.mat-mdc-button-base.ng-star-inserted").addEventListener("click", function () {
-            var e = [],
-                n = [],
-                t = 0,
-                a = "Refx",
-                c = "Web",
-                i = document.querySelectorAll("refx-contact-info-email-item-pres");
-            i.forEach(function (nItem) {
-                if (nItem.querySelector("input").value != null) {
-                    e.push(nItem.querySelector("input").value);
-                }
-            });
-            if (e.length > 0) e = e.join(",");
-            var l = document.querySelectorAll("refx-contact-info-phone-item-pres");
-            l.forEach(function (eItem) {
-                var t = eItem.querySelectorAll("input");
-                if (t[0].value != null && t[1].value != null) {
-                    n.push(t[0].value + t[1].value);
-                }
-            });
-            if (n.length > 0) n = n.join(",");
-            document.querySelector("#gdprConsentAds-input").checked ? t = 1 : t = 0;
-            var lastName = document.querySelector("input[id$='PersonalInfolastName']").value;
-            var firstName = document.querySelector("input[id$='PersonalInfofirstName']").value;
-            grecaptcha.ready(function () {
-                grecaptcha.execute('6LcCMl4qAAAAAMLgG-uhh5lRFswvMEDzIlxG1IOC', { action: 'submit' }).then(function (token) {
-                    // Append the reCAPTCHA token to the form data
-                    var data = {};
-                    data['TOKEN'] = token;
-                    data['SOURCE'] = a;
-                    data['PLATFORM'] = c;
-                    data['SUB'] = t;
-                    data['EMAIL'] = e;
-                    data['PHONE'] = n;
-                    data['LAST-NAME'] = lastName;
-                    data['FIRST-NAME'] = firstName;
-                    data['VENDOR'] = 'GMS';
-                    data['LANGUAGE'] = len;
-                    data['COUNTRY'] = countryCode;
-                    data['DEVICE-ID'] = localKeyId;
-                    data['GA-ID'] = gaGlobal ? gaGlobal.vid : '';
-    
-                    // Call your server API to submit the form data
-                    fetch('https://mssf.vietnamairlines.com:9001/consent-refx', {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify(data)
-                    }).then(function (response) {
-                        if (response.ok) {
-                            console.log('Form submitted successfully.');
-                            // Optionally, redirect or show a success message
-                        } else {
-                            console.error('Error submitting the form.');
-                        }
-                    }).catch(function (error) {
-                        console.error('Request failed:', error);
-                    });
-                });
-            });
-        });
+
+        var buttons = document.querySelector('button.mat-focus-indicator.nextBtn.mat-flat-button.mat-button-base.ng-star-inserted');
+		//document.querySelector(".nextBtn.mdc-button.mdc-button--unelevated.mat-mdc-unelevated-button.mat-unthemed.mat-mdc-button-base.ng-star-inserted")
+		if (buttons != null) {
+			buttons.addEventListener("click", function () {
+				var e = [],
+					n = [],
+					t = 0,
+					a = "Refx",
+					c = "Web",
+					i = document.querySelectorAll("refx-contact-info-email-item-pres");
+				i.forEach(function (nItem) {
+					if (nItem.querySelector("input").value != null) {
+						e.push(nItem.querySelector("input").value);
+					}
+				});
+				if (e.length > 0) e = e.join(",");
+				var l = document.querySelectorAll("refx-contact-info-phone-item-pres");
+				l.forEach(function (eItem) {
+					var t = eItem.querySelectorAll("input");
+					if (t[0].value != null && t[1].value != null) {
+						n.push(t[0].value + t[1].value);
+					}
+				});
+				if (n.length > 0) n = n.join(",");
+				document.querySelector("#gdprConsentAds-input").checked ? t = 1 : t = 0;
+				var lastName = document.querySelector("input[id$='PersonalInfolastName']").value;
+				var firstName = document.querySelector("input[id$='PersonalInfofirstName']").value;
+				grecaptcha.ready(function () {
+					grecaptcha.execute('6LcCMl4qAAAAAMLgG-uhh5lRFswvMEDzIlxG1IOC', { action: 'submit' }).then(function (token) {
+						// Append the reCAPTCHA token to the form data
+						var data = {};
+						data['TOKEN'] = token;
+						data['SOURCE'] = a;
+						data['PLATFORM'] = c;
+						data['SUB'] = t;
+						data['EMAIL'] = e;
+						data['PHONE'] = n;
+						data['LAST-NAME'] = lastName;
+						data['FIRST-NAME'] = firstName;
+						data['VENDOR'] = 'GMS';
+						data['LANGUAGE'] = len;
+						data['COUNTRY'] = countryCode;
+						data['DEVICE-ID'] = localKeyId;
+						data['GA-ID'] = gaGlobal ? gaGlobal.vid : '';
+		
+						// Call your server API to submit the form data
+						fetch('https://mssf.vietnamairlines.com:9000/consent-refx', {
+							method: 'POST',
+							headers: { 'Content-Type': 'application/json' },
+							body: JSON.stringify(data)
+						}).then(function (response) {
+							if (response.ok) {
+								console.log('Form submitted successfully.');
+								// Optionally, redirect or show a success message
+							} else {
+								console.error('Error submitting the form.');
+							}
+						}).catch(function (error) {
+							console.error('Request failed:', error);
+						});
+					});
+				});
+			})
+		}
+        
     }
-}, 3000);
+}, 1500);
+
